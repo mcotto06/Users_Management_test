@@ -1,0 +1,28 @@
+<div class="center-dialog-vertically">
+    <div style="text-align: center;">
+        <h2>
+            <mat-icon style="margin-right:  5px; font-size:xx-large; width: 40px; padding-top: 10px;">group</mat-icon> Users Management </h2>
+    </div>
+    <form (submit)="onSubmit(form.value)" [formGroup]="form">
+        <div style="text-align: center;">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="username" matInput />
+                <mat-error *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="text-danger support-text">The username field is required.</mat-error>
+            </mat-form-field>
+        </div>
+        <div style="text-align: center;">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" formControlName="password" matInput />
+                <mat-error *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger support-text">The password field is required.</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-flat-button color="primary" [disabled]="form.invalid">
+                Login
+            </button>
+            <mat-error style="margin-top: 15px;" *ngIf="err" class="text-danger support-text">Error logging in</mat-error>
+        </div>
+    </form>
+</div>

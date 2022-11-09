@@ -1,0 +1,19 @@
+/* form {
+    max-width: 500px;
+    text-align: center;
+} */
+
+mat-form-field {
+    width: 25%;
+}
+
+button {
+    margin-right: 1rem;
+}
+
+.center-dialog-vertically {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: 5%;
+}

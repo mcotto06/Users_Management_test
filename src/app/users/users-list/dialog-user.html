@@ -1,0 +1,107 @@
+<h2 mat-dialog-title><strong>{{action}}</strong></h2>
+
+<mat-dialog-content *ngIf="action == 'Show User' && !loading">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="row" style="width: 500px;">
+        <!-- column -->
+        <div fxFlex.gt-sm="50" fxFlex="100">
+            <h5 class="m-t-5 m-b-5 font-bold">ID</h5>
+            <span>{{ user.id }}</span>
+        </div>
+        <!-- column -->
+        <div fxFlex.gt-sm="50" fxFlex="100">
+            <h5 class="m-t-5 m-b-5 font-bold">Name</h5>
+            <span>{{ user.name }}</span>
+        </div>
+        <!-- column -->
+        <div fxFlex.gt-sm="50" fxFlex="100">
+            <h5 class="m-t-5 m-b-5 font-bold">Gender</h5>
+            <span>{{ user.gender == 'male' ? "Male" : "Female" }}</span>
+        </div>
+
+        <!-- column -->
+        <div fxFlex.gt-sm="50" fxFlex="100">
+            <h5 class="m-t-5 m-b-5 font-bold">Status</h5>
+            <span>{{ user.status == 'active' ? "Active" : "Inactive" }}</span>
+        </div>
+
+        <!-- column -->
+        <div fxFlex.gt-sm="100" fxFlex="100">
+            <h5 class="m-t-5 m-b-5 font-bold">Email</h5>
+            <span>{{ user.email }}</span>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-content *ngIf="action == 'Add User' || action == 'Edit User'">
+
+    <form [formGroup]="form">
+
+        <div fxLayout="row wrap" fxFlexAlign="center" class="row" style="width: 500px;">
+
+            <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field style="width: 100%;">
+                    <input type="text" matInput required formControlName="fName" placeholder="Name">
+                    <mat-hint *ngIf="form.controls['fName'].hasError('required') && form.controls['fName'].touched" class="text-danger font-14">The name field is required.</mat-hint>
+                    <mat-hint *ngIf="form.controls['fName'].hasError('minlength') && form.controls['fName'].touched" class="text-danger font-14">The name must be at least 3 characters long.</mat-hint>
+                    <mat-hint *ngIf="form.controls['fName'].hasError('maxlength') && form.controls['fName'].touched" class="text-danger font-14">The name cannot exceed 100 characters.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" style="padding-right: 10px;">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="fGender" required>
+                        <mat-option [value]="'male'">Men</mat-option>
+                        <mat-option [value]="'female'">Female</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="form.controls['fGender'].hasError('required') && form.controls['fGender'].touched" class="text-danger font-14">The gender is required.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" style="padding-left: 10px;">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="fStatus" required>
+                        <mat-option [value]="'active'">Active</mat-option>
+                        <mat-option [value]="'inactive'">Inactive</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="form.controls['fStatus'].hasError('required') && form.controls['fStatus'].touched" class="text-danger font-14">The status is required.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field style="width: 100%;">
+                    <input type="email" matInput formControlName="fEmail" placeholder="Email">
+                    <mat-hint *ngIf="form.controls['fEmail'].hasError('required') && form.controls['fEmail'].touched" class="text-danger font-14">The email field is required.</mat-hint>
+                    <mat-hint *ngIf="form.controls['fEmail'].hasError('pattern')" class="text-danger font-14">The email field is invalid.</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-content *ngIf="action == 'Delete User'">
+
+    <div class="p-t-10 p-b-30">
+        Are you sure?
+    </div>
+
+</mat-dialog-content>
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate" value="40"></mat-progress-bar>
+
+<div mat-dialog-actions align="end">
+    <button mat-flat-button color="primary" *ngIf="action == 'Add User'" (click)="doAction()" style="margin-right: 10px;" [disabled]="form.invalid">
+        Create
+    </button>
+
+    <button mat-flat-button color="accent" *ngIf="action == 'Edit User'" (click)="doAction()" style="margin-right: 10px;" [disabled]="form.invalid">
+        Update
+    </button>
+
+    <button mat-flat-button color="warn" *ngIf="action == 'Delete User'" (click)="deleteUser()" style="margin-right: 10px;">
+        Delete
+    </button>
+
+    <button mat-button (click)="closeDialog()">Close</button>
+</div>

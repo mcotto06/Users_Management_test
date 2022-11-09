@@ -1,0 +1,82 @@
+<app-menu></app-menu>
+<div *ngIf="view">
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <mat-card>
+                <mat-card-content>
+                    <div fxLayout="row wrap" class="align-items-center">
+                        <div fxFlex.gt-md="50" fxFlex="100" style="margin-bottom: 10px;">
+                            <button mat-raised-button class="m-r-15 float-right" color="primary" (click)="openDialog('Add User', null)">Create User</button>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <div class="responsive-table">
+                                <mat-table #table [dataSource]="dataSource" style="width: 100%;" *ngIf="!loading">
+
+                                    <ng-container matColumnDef="id">
+                                        <mat-header-cell style="padding-left: 1%;" *matHeaderCellDef> Id </mat-header-cell>
+                                        <mat-cell style="padding-left: 1%;" *matCellDef="let obj"> {{ obj.id }} </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="name">
+                                        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                                        <mat-cell *matCellDef="let obj"> {{ obj.name }} </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="gender">
+                                        <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+                                        <mat-cell *matCellDef="let obj"> {{ obj.gender == 'male' ? "Male" : "Female" }} </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="email">
+                                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                                        <mat-cell *matCellDef="let obj"> {{ obj.email }} </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="status">
+                                        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                                        <mat-cell *matCellDef="let obj">
+                                            <span>{{ obj.status == 'active' ? "Active" : "Inactive" }}</span>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="actions">
+                                        <mat-header-cell *matHeaderCellDef class="justify-center"> Actions </mat-header-cell>
+                                        <mat-cell *matCellDef="let obj" class="justify-center">
+                                            <div style="display: flex; flex-wrap: wrap;">
+                                                <button mat-icon-button color="primary" type="button" (click)="openDialog('Show User', obj)" aria-label="Show User" matTooltip="Show User">
+                                                    <mat-icon>visibility</mat-icon>
+                                                </button>
+                                                <button mat-icon-button color="accent" type="button" (click)="openDialog('Edit User', obj)" aria-label="Edit User" matTooltip="Edit User">
+                                                    <mat-icon>edit</mat-icon>
+                                                 </button>
+                                                <button mat-icon-button color="warn" type="button" (click)="openDialog('Delete User', obj)" aria-label="Delete User" matTooltip="Delete User">
+                                                    <mat-icon>delete</mat-icon>
+                                                 </button>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="displayedColumnsUsers sticky: true"></mat-header-row>
+                                    <mat-row *matRowDef="let obj; columns: displayedColumnsUsers;" [ngClass]="{'selected-row': obj.isRowSelected, 'element-row': true }"></mat-row>
+                                </mat-table>
+
+                                <mat-progress-bar *ngIf="loading" mode="indeterminate" value="40"></mat-progress-bar>
+
+                                <div *ngIf="!loading && dataSource.data.length === 0" style="padding: 30px 0px;">No records found</div>
+
+                                <mat-paginator [length]="pagination.total" [pageSize]="pagination.perPage" [pageSizeOptions]="[5, 10, 50, 100]" (page)="handlePaginationChange($event)">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+
+
+
+</div>

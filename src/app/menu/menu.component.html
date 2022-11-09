@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+
+    <mat-icon style="margin-right: 15px ;">person</mat-icon>
+
+    <span>Hi, {{ getUser() != 'null' ? getUser() : '' }}  </span>
+
+    <div style="width: 100%; float: right">
+        <a style="float: right;" mat-button (click)="logout()">Logout</a>
+        <mat-icon style="float: right; margin-top: 5px;">directions_run</mat-icon>
+    </div>
+
+</mat-toolbar>
